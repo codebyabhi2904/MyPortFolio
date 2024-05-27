@@ -1,0 +1,9 @@
+{
+    "name": "Abhishek Avaiya Portfolio",
+    "short_name": "AB Portfolio",
+    "description": "I am a web developer with expertise in creating dynamic and responsive websites using modern web technologies. I specialize in both frontend and backend development, delivering high-quality, user-friendly solutions.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000"
+}
