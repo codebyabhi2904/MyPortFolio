@@ -659,8 +659,7 @@
                                     </div>
                                     <!-- Subject Button -->
                                     <div class="btn-form col-sm-12">
-                                        <button type="submit" class="btn btn-fill btn-block" id="form-submit">Send
-                                            Message</button>
+                                        <button type="submit" class="btn btn-fill btn-block" id="form-submit">Send Message</button>
                                     </div>
                                 </div>
                             </form>                            
@@ -699,6 +698,64 @@
     <script src="assets/plugins/js/packery-mode.pkgd.js"></script>
     <script src="assets/js/custom-scripts.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).on('submit','#contactForm',function(){
+            let form = new FormData($('#contactForm')[0]);
+
+
+            let firstName = $('#name').val();
+            let lastName = $('#L_name').val();
+            let email = $('#email').val();
+            let message = $('#message').val();
+
+            // Construct the email body
+            // let emailBody = encodeURIComponent(`First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nMessage: ${message}`);
+
+
+            let emailBody = `
+       
+                <h2>Contact Form Submission</h2>
+                <p><strong>First Name:</strong> ${firstName}</p>
+                <p><strong>Last Name:</strong> ${lastName}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Message:</strong></p>
+                <p>${message}</p>
+         
+    `;
+    
+
+
+            if(firstName != "" && lastName != "" && email != "" && message !=""){
+                
+            $.ajax({
+                url : "http://143.110.242.52/mail/mail.php",
+                type:'get',
+                data:{
+                    'to':'ab.avaiya2904@gmail.com',
+                    'subject':'Somebody trying to connect!',
+                    'body': emailBody,
+                },
+                success:function(datas){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Abhishek Will Connect you soon!",
+                        icon: "success"
+                    });
+                }
+            })
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Please fill up all details!",
+                });
+            }
+
+        })
+        // http://143.110.242.52/mail/mail.php
+    </script>
 </body>
 
 </html>

@@ -467,6 +467,10 @@ a:focus {
   top: 5px;
 }
 
+.swal2-title, .swal2-html-container {
+  color: #000000 !important;
+}
+
 /**
  * ------------------
  * list
