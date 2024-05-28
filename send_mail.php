@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if inputs are not empty
     if (!empty($first_name) && !empty($last_name) && !empty($email) && !empty($message)) {
         // Your email address
-        $to = "your-email@example.com";
+        $to = "ab.avaiya2904@gmail.com";
         $subject = "New Contact Form Submission";
 
         // Email content
