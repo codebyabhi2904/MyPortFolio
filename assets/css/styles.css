@@ -279,10 +279,19 @@ a:focus {
   width: 14px;
 }
 
-.btn.btn-fill {
-  background-color: #00E8F8;
+.btn-block {
+  background-color: #0ef !important;
   color: #000;
   cursor: pointer;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px #0ef !important;
+  padding: 10px 32px;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: uppercase;
 }
 
 .btn.left-icon .icon {
