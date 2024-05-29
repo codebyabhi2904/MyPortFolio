@@ -647,14 +647,14 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <input name="mobile_number" class="contact-email form-control" id="L_name" type="text"
-                                            placeholder="Mobile Number" required>
+                                            placeholder="Mobile Number" maxlength="10" required>
                                     </div>
                                     <div class="col-sm-12">
-                                        <input name="name" class="contact-subject form-control" id="email" type="email"
+                                        <input name="email" class="contact-subject form-control" id="email" type="email"
                                             placeholder="Your Email" required>
                                     </div>
                                     <div class="col-sm-12">
-                                        <textarea class="contact-message" id="message" rows="6"
+                                        <textarea class="contact-message" name="message" id="message" rows="6"
                                             placeholder="Your Message" required></textarea>
                                     </div>
                                     <!-- Subject Button -->
@@ -663,7 +663,7 @@
                                     </div>
                                     <div id="result"></div>
                                 </div>
-                            </form>                            
+                            </form>                             
                         </div>
                     </div>
                     <div class="col-sm-12 mh-copyright wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">
@@ -760,44 +760,60 @@
     </script> -->
     <script>
         const form = document.getElementById('contactForm');
-        const result = document.getElementById('result');
         
         form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const formData = new FormData(form);
-          const object = Object.fromEntries(formData);
-          const json = JSON.stringify(object);
-          result.innerHTML = "Please wait..."
-        
+            e.preventDefault();
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            Swal.fire({
+                title: 'Please wait...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
             fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                .then(async (response) => {
-                    let json = await response.json();
-                    if (response.status == 200) {
-                        result.innerHTML = "Form submitted successfully";
-                    } else {
-                        console.log(response);
-                        result.innerHTML = json.message;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                    result.innerHTML = "Something went wrong!";
-                })
-                .then(function() {
-                    form.reset();
-                    setTimeout(() => {
-                        result.style.display = "none";
-                    }, 3000);
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                Swal.close();
+                if (response.status == 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Form submitted successfully',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: json.message,
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong!',
                 });
+            })
+            .then(function() {
+                form.reset();
+            });
         });
-        </script>
+    </script>
 </body>
 
 </html>
